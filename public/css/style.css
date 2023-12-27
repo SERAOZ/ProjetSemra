@@ -1,0 +1,224 @@
+ /* Özel CSS stilleri burada tanımlanabilir */
+ /* Ekran genişliği 768px'den küçükse uygulanacak stiller */
+ @media screen and (max-width: 768px) {
+    .navbar {
+        background-color: #333; /* Küçük ekranlarda navbar arkaplan rengini değiştir */
+    }
+    
+    .navbar-nav .nav-item .nav-link {
+        display: block; /* Menü öğelerini blok olarak ayarla */
+        margin: 50px 0; /* Düşey aralığı ayarla */
+    }
+    
+    /* Diğer gerekli stil değişiklikleri... */
+}
+
+        /* Örneğin, gezinme menüsü rengi değiştirme */
+.navbar {background-color: transparent;}
+.navbar-brand img{
+    max-height: 250px; /* Resim yüksekliği ayarlanabilir */
+    margin-right: 10px; /* Resim ile metin arasındaki boşluk */
+}
+.navbar-brand span {
+    font-family: 'Arial', sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    color: #f39c12; /* Başlık rengi */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1.5); /* Metin gölgesi */
+}
+.navbar-nav .nav-item .nav-link {position: relative;}
+.navbar-nav .nav-item .nav-link::before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 4px; /* Metin altına çizgi eklemek için */
+    background-color: #ff6b81; /* Alt çizgi rengi */
+    transform: scaleX(0); /* Başlangıçta çizgiyi gizle */
+    transform-origin: 100% 50%;
+    transition: transform 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-item .nav-link:hover::before {transform: scaleX(1); /* Üzerine gelindiğinde çizgiyi göster */}
+section 
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 20vh; /* Ekran yüksekliğinin tamamını kapla */
+}
+h1 {
+    font-size: 36px;
+    color: #333;
+}        
+/* Resim özelleştirmeleri */
+img
+{
+    transition: transform 1.3s;
+    filter: hue-rotate(90deg); /* Resmi 90 derece döndür */
+    transform: rotate(45deg); /* Resmi 45 derece döndür */
+}
+img:hover
+{
+    transform: scale(1.7); /* Üzerine gelindiğinde resmi büyüt */
+}
+.container {
+    text-align: center; /* Metni yatay olarak ortala */
+    display: flex;
+    justify-content: center; /* Metni dikey olarak ortala */
+    align-items: center;    
+}
+.container p {
+    font-size: 18px;
+    color: #333;
+}
+/*=================================FORM IDENTIFICATION STYLE============================================*/
+/* Formun genel tasarımı */
+.login-container {
+    width: 400px;
+    margin:  auto;
+    padding: 20px;
+    background-color:whitesmoke;
+    box-shadow: 0 0 10px #FF0000;
+    border-radius: 50px;
+}
+
+/* Form başlığı */
+.login-title {
+    text-align: center;
+    font-size: 35px;
+    margin-bottom: 30px;
+}
+
+.login-title::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 3px;
+    background-color: #007bff; /* Çizgi rengi */
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+
+/* Form alanları */
+.form-group {
+    margin-bottom: 25px;
+}
+.form-label {
+    display: block;
+    font-weight: bold;
+}
+.form-input {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid gray;
+    border-radius: 63px;
+    font-size: 15px;
+}
+
+/* Giriş butonu */
+.login-button {
+    background-color: gray;
+    color: #fff;
+    padding: 13px 25px;
+    border: none;
+    border-radius: 30px;
+    font-size: 15px;
+    cursor: pointer;
+}
+.login-button:hover {
+    background-color: #ff6b81;
+}
+a[href="formInsc.php"] {
+    color: red;
+}
+
+
+/*=================================DASHBOARD STYLE============================================*/
+body {
+    font-family: "Roboto";
+    background-color: #e5eef3;
+    text-align: center;
+    color: #f1ce64;
+    font-size: 20px;
+  }
+  
+  a {
+    color: #f1ce64;
+  }
+  
+  .share {
+    position: absolute;
+    width: 400px;
+    left: 50%;
+    margin-left: -200px;
+    top: 50%;
+    margin-top: 200px;
+    border-radius: 80px;
+  }
+  .share span {
+    width: 200px;
+    line-height: 80px;
+    display: inline-block;
+    font-weight: 100;
+    text-transform: uppercase;
+    position: absolute;
+    left: 50%;
+    margin-left: -100px;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+  }
+  .share nav {
+    font-size: 0;
+  }
+  .share a {
+    line-height: 10px;
+    width: 80px;
+    text-align: center;
+    display: inline-block;
+    background-color: #ffffff;
+    color: #ffffff;
+    overflow: hidden;
+    opacity: 10;
+    transition: all 0.3s ease-in-out;
+    margin: 0 20px;
+    box-shadow: 30px 25px 3px rgba(0, 0, 0, 0.10);
+  }
+  .share a:nth-child(1) {
+    border-top-left-radius: 40px;
+    border-bottom-left-radius: 40px;
+    margin-left: 0;
+  }
+  .share a:nth-child(1):hover {
+    background-color: #61c5ec;
+  }
+  .share a:nth-child(2):hover {
+    background-color: #3B5998;
+  }
+  .share a:nth-child(3):hover {
+    background-color: #ea4335;
+  }
+  .share a:nth-child(4) {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    margin-right: 0;
+  }
+  .share a:nth-child(4):hover {
+    background-color: #000000;
+  }
+  .share:hover span, .share.hover span {
+    opacity: 0;
+  }
+  .share:hover a, .share.hover a {
+    border-radius: 50%;
+    margin: 0 10px;
+    color: #f1ce64;
+    font-size: 30px;
+  }
+  .share:hover a:hover, .share.hover a:hover {
+    color: #fff;
+  }

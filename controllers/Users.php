@@ -2,35 +2,40 @@
 
 class Users extends Controller 
 {
+    
     private $userModel;
    
     public function __construct() { 
         $this->userModel = $this->model('user');       
     }
+    public function valid_data($data){
+        $data = trim($data);//enlève les espaces en début et fin de chaîne/
+        $data = stripslashes($data);//enlève les slashs dans les textes/
+        $data = htmlspecialchars($data);/*enlève les balises html comme ""<>...*/
+        return $data;
+    }
   
     public function register()
     {
         $data = [
-            "user_id" => "",
+           
             "username" => "",
             "password" => "",
             "email" => "",
-            "is_admin" => ""
+            
         ];
+      
 
         if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['inscrire']))
         {
             // Sanitize POST data
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-            $data = [
-                "user_id" => $_SESSION ["user_id"],
-                "username" => trim($_POST["username"]),
-                "password" => trim($_POST["password"]),
-                "email" => trim($_POST["email"]),
-                "is_admin" => trim($_POST["is_admin"])
-            ];
+                $data = [
+                "username" => $this ->valid_data($_POST["username"]),
+                "password" => $this ->valid_data($_POST["password"]),
+                "email" => $this ->valid_data($_POST["email"]),                
+                ];
 
-            if($_SESSION['email']!= $data['email'] && $this->userModel->findUserByEmail($data['email'])) 
+            if($this->userModel->findUserByEmail($data['email'])) 
             {
                 $data['emailError'] = 'Cet email est déja utilisé.';
             } 
@@ -48,7 +53,8 @@ class Users extends Controller
                     die('Erreur systéme.');
                 }
             }
-         }    
+         }
+         $this->view('users/register', $data);    
     }
     //Fonction qui permet à l’usager de se connecter
     public function connexion() {
@@ -56,19 +62,12 @@ class Users extends Controller
             'emailError' => ''
         ];
 
-        function valid_data($data){
-            $data = trim($data);//enlève les espaces en début et fin de chaîne/
-            $data = stripslashes($data);//enlève les slashs dans les textes/
-            $data = htmlspecialchars($data);/*enlève les balises html comme ""<>...*/
-            return $data;
-        }
-
-        //validation des post
+            //validation des post
         if(isset($_POST['submit'])) {
             
                 /*on récupère la valeur email du formulaire et on y applique
                  les filtres de la fonction valid_data*/
-                $email = valid_data($_POST["email"]);
+                $email = $this-> valid_data($_POST["email"]);
                 $password = $_POST["password"];
  
                 $loggedInUser = $this->userModel->connexion($email, $password);

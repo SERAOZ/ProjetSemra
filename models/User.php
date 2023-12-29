@@ -7,14 +7,14 @@ class User {
     }
     public function inscription($data) {
               
-        $this->db->query('INSERT INTO user (username, password, email, is_admin) VALUES(:username, :password, :email, :is_admin)');
+        $this->db->query('INSERT INTO users (username, password, email, is_admin) VALUES(:username, :password, :email, :is_admin)');
 
         //Bind values
         $this->db->bind(':username', $data['username']);
         $this->db->bind(':password', $data['password']);
         $this->db->bind(':email', $data['email']);        
-        $this->db->bind(':is_admin', '0');        
-            
+        $this->db->bind(':is_admin', 0);        
+        
         //Execute function
         if ($this->db->execute()) {
             return true;
@@ -25,7 +25,7 @@ class User {
     //Find user by email. Email is passed in by the Controller.
     public function findUserByEmail($email) {
         //Prepared statement
-        $this->db->query('SELECT * FROM user WHERE email = :email');
+        $this->db->query('SELECT * FROM users WHERE email = :email');
 
         //Email param will be binded with the email variable
         $this->db->bind(':email', $email);
@@ -38,7 +38,7 @@ class User {
         }
     }
     public function connexion($email, $password) {
-        $this->db->query('SELECT * FROM user WHERE email = :email');
+        $this->db->query('SELECT * FROM users WHERE email = :email');
 
         //Bind 
         $this->db->bind(':email', $email);

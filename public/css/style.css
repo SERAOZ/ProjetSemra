@@ -1,30 +1,28 @@
- /* Özel CSS stilleri burada tanımlanabilir */
- /* Ekran genişliği 768px'den küçükse uygulanacak stiller */
+
+ /* Styles à appliquer si la largeur de l'écran est inférieure à 768px*/
  @media screen and (max-width: 768px) {
     .navbar {
-        background-color: #333; /* Küçük ekranlarda navbar arkaplan rengini değiştir */
-    }
-    
+        background-color: #333; /* Changer la couleur de fond de la barre de navigation sur les petits écrans */
+    }    
     .navbar-nav .nav-item .nav-link {
-        display: block; /* Menü öğelerini blok olarak ayarla */
-        margin: 50px 0; /* Düşey aralığı ayarla */
+        display: block; /* Définir les éléments de menu comme des blocs */
+        margin: 150px 0; /* Définir la plage verticale */
     }
-    
-    /* Diğer gerekli stil değişiklikleri... */
+ 
 }
-
-        /* Örneğin, gezinme menüsü rengi değiştirme */
+/* Changer la couleur du menu de navigation*/
 .navbar {background-color: transparent;}
 .navbar-brand img{
-    max-height: 250px; /* Resim yüksekliği ayarlanabilir */
-    margin-right: 10px; /* Resim ile metin arasındaki boşluk */
+    height: 100px; 
+    width: auto;
+    margin-right: 10px; /* Espace entre l'image et le texte*/
 }
 .navbar-brand span {
     font-family: 'Arial', sans-serif;
     font-size: 36px;
     font-weight: bold;
-    color: #f39c12; /* Başlık rengi */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1.5); /* Metin gölgesi */
+    color: #060400; /* Couleur de l'en-tête*/
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 4.5); /* Ombre du texte*/
 }
 .navbar-nav .nav-item .nav-link {position: relative;}
 .navbar-nav .nav-item .nav-link::before {
@@ -33,59 +31,58 @@
     top: 100%;
     left: 0;
     width: 100%;
-    height: 4px; /* Metin altına çizgi eklemek için */
-    background-color: #ff6b81; /* Alt çizgi rengi */
-    transform: scaleX(0); /* Başlangıçta çizgiyi gizle */
+    height: 4px; /* Pour ajouter une ligne sous le texte */
+    background-color: #ff6b81; /* Couleur du soulignement*/
+    transform: scaleX(0); /* Cacher la ligne au démarrage */
     transform-origin: 100% 50%;
     transition: transform 0.3s ease-in-out;
 }
-
-.navbar-nav .nav-item .nav-link:hover::before {transform: scaleX(1); /* Üzerine gelindiğinde çizgiyi göster */}
+.navbar-nav .nav-item .nav-link:hover::before {transform: scaleX(1); /* Afficher la ligne au survol*/}
 section 
 {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 20vh; /* Ekran yüksekliğinin tamamını kapla */
+    min-height: 20vh; /* Couvrir toute la hauteur de l'écran*/
 }
 h1 {
     font-size: 36px;
     color: #333;
 }        
-/* Resim özelleştirmeleri */
+
 img
 {
     transition: transform 1.3s;
-    filter: hue-rotate(90deg); /* Resmi 90 derece döndür */
-    transform: rotate(45deg); /* Resmi 45 derece döndür */
+    filter: hue-rotate(90deg); /* Rotation de l'image de 90 degrés*/
+    transform: rotate(45deg); /* Rotation de l'image de 45 degrés */
 }
 img:hover
 {
-    transform: scale(1.7); /* Üzerine gelindiğinde resmi büyüt */
+    transform: scale(1.7); /* Agrandir l'image au survol*/
 }
 .container {
-    text-align: center; /* Metni yatay olarak ortala */
+    text-align: center; /* Centrer le texte horizontalement */
     display: flex;
-    justify-content: center; /* Metni dikey olarak ortala */
+    justify-content: center; /* Centrer le texte verticalement */
     align-items: center;    
 }
 .container p {
     font-size: 18px;
     color: #333;
 }
-/*=================================FORM IDENTIFICATION STYLE============================================*/
-/* Formun genel tasarımı */
+/*=================================FORM CONNEXION STYLE============================================*/
+/* Conception générale du formulaire */
 .login-container {
-    width: 400px;
+    width: 350px;
     margin:  auto;
     padding: 20px;
-    background-color:whitesmoke;
-    box-shadow: 0 0 10px #FF0000;
+    background-color:white;
+    box-shadow: 0 0 10px #007bff;
     border-radius: 50px;
 }
 
-/* Form başlığı */
+/* Titre du formulaire*/
 .login-title {
     text-align: center;
     font-size: 35px;
@@ -97,7 +94,7 @@ img:hover
     display: block;
     width: 100px;
     height: 3px;
-    background-color: #007bff; /* Çizgi rengi */
+    background-color: #007bff; /* Couleur de la ligne */
     margin: 0 auto;
     margin-top: 20px;
 }
@@ -119,35 +116,32 @@ img:hover
     font-size: 15px;
 }
 
-/* Giriş butonu */
+/* Bouton de connexion */
 .login-button {
     background-color: gray;
     color: #fff;
-    padding: 13px 25px;
+    padding: 10px 25px;
     border: none;
     border-radius: 30px;
     font-size: 15px;
     cursor: pointer;
 }
 .login-button:hover {
-    background-color: #ff6b81;
-}
-a[href="formInsc.php"] {
-    color: red;
+    background-color: #007bff;
 }
 
 
 /*=================================DASHBOARD STYLE============================================*/
 body {
     font-family: "Roboto";
-    background-color: #e5eef3;
+    background-color:white;
     text-align: center;
-    color: #f1ce64;
+    color: none;
     font-size: 20px;
   }
   
   a {
-    color: #f1ce64;
+    color: none;
   }
   
   .share {
@@ -221,4 +215,40 @@ body {
   }
   .share:hover a:hover, .share.hover a:hover {
     color: #fff;
+  }
+
+
+  .Pcolor::-webkit-input-placeholder {
+    color: #ff7a7a;
+  }
+  
+  .form-group {
+    position: relative;
+  }
+  
+  .iconic {
+    display: none;
+    position: absolute;
+    right: 1.5vw;
+    top: 15px;
+    padding: 10px 10px;
+  }
+  
+  .formData[data-error]::after {
+    content: attr(data-error);
+    font-size: 10px;
+    color: #e54858;
+    display: block;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    margin-right: 2vw;
+    text-align: right;
+    line-height: 0.3;
+    opacity: 0;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+  }
+  
+  .formData[data-error-visible="true"]::after {
+    opacity: 1;
   }

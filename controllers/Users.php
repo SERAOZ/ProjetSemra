@@ -15,90 +15,129 @@ class Users extends Controller
         return $data;
     }
   
-    public function register()
-    {
-        $data = [
-           
-            "username" => "",
-            "password" => "",
-            "email" => "",
+    public function register() {
+                
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                       
+            $username=$this->valid_data($_POST["username"]);
+            $email = $_POST["email"];
+            $password = $this->valid_data($_POST["password"]);
+            $success= '';
+            $username_error='';
+            $email_error = '';
+            $password_error = '';
             
-        ];
-      
-
-        if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['inscrire']))
-        {
-            // Sanitize POST data
-                $data = [
-                "username" => $this ->valid_data($_POST["username"]),
-                "password" => $this ->valid_data($_POST["password"]),
-                "email" => $this ->valid_data($_POST["email"]),                
-                ];
-
-            if($this->userModel->findUserByEmail($data['email'])) 
+            if(empty($username))
             {
-                $data['emailError'] = 'Cet email est déja utilisé.';
+                $username_error = 'Username is Required';
+            }
+            // Validate email
+            if (empty($email)) {
+                $email_error= 'Email is required.';
+            } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $email_error = 'Please enter the correct format.';
             } 
-
-            if (empty($data['emailError'])) {
-
+            if ($this->userModel->findUserByEmail($email)) {
+                $email_error = 'Email is already taken.';
+            }
+    
+            if(empty($password))
+            {
+                $password_error = 'Password is Required';
+            }    
+            
+            if($username_error=='' && $email_error == '' && $password_error == ''){
+                
                 // Hash password
-                $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-
-                //enregistre utilisateur
-                if ($this->userModel->inscription($data)) {
-                    //Redirect page connexion
-                    header('location: ' . WWW_ROOT . 'users/connexion');
+                $password= password_hash($password, PASSWORD_DEFAULT);
+    
+                if ($this->userModel->inscription($username, $email, $password)) {
+                    $success = '<div class="alert alert-success">Vous êtes inscrit(e)</div>';      
                 } else {
-                    die('Erreur systéme.');
+                   $success = '<div class="alert alert-success">Erreur d\'inscription, veuillez recommencer</div>';
+                }
+                
+            }
+            $output = array(
+                'success'		=>	$success,
+                'username_error'=> $username_error,
+                'email_error'	=>	$email_error,
+                'password_error'=>	$password_error,
+            );
+
+echo json_encode($output);
+
+}else{
+$this->view('users/register');    
+}                 
+}   
+    public function connexion() {
+        //validation des post
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            
+            /*on récupère la valeur email du formulaire et on y applique
+                les filtres de la fonction valid_data*/
+            $email = $this->valid_data($_POST["email"]);
+            $password = $this->valid_data($_POST["password"]);
+            $success= '';
+            $email_error = '';
+            $password_error = '';
+
+
+            if(empty($email))
+            {
+                $email_error = 'Email is Required';
+            }
+            else
+            {
+                if(!filter_var($email, FILTER_VALIDATE_EMAIL))
+                {
+                    $email_error = 'Email is invalid';
                 }
             }
-         }
-         $this->view('users/register', $data);    
-    }
-    //Fonction qui permet à l’usager de se connecter
-    public function connexion() {
-        $data = [            
-            'emailError' => ''
-        ];
 
-            //validation des post
-        if(isset($_POST['submit'])) {
-            
-                /*on récupère la valeur email du formulaire et on y applique
-                 les filtres de la fonction valid_data*/
-                $email = $this-> valid_data($_POST["email"]);
-                $password = $_POST["password"];
- 
+            if(empty($password))
+            {
+                $password_error = 'Password is Required';
+            }
+
+            if( $email_error == '' && $password_error == ''){
                 $loggedInUser = $this->userModel->connexion($email, $password);
-               
-                if ($loggedInUser == false ) {
-                    $data['emailError']= 'Le mot de passe ou l\'email sont incorrects ou vous n\'êtes pas encore inscrit.' ;
-                    $this->view('users/connexion', $data);              
-                }else{
-                    //ouvre une session si le user est bien dans la table user (email, pass)
-                    $this->createUserSession($loggedInUser);
-                } 
+            
+            if ($loggedInUser == true ) {
+                $this->createUserSession($loggedInUser);    
+                  $success = '<div class="alert alert-success">Vous êtes connecté(e)</div>';      
+            }else{
+                $success = '<div class="alert alert-success">Mauvais email ou password. Êtes vous déja inscrit(e)?</div>';  
+            }
+          
+            }
+            $output = array(
+                                'success'		=>	$success,
+                                'email_error'	=>	$email_error,
+                                'password_error'=>	$password_error,
+                            );
 
-        } else {
-            $data = ['emailError' => ''];
-        $this->view('users/connexion', $data);
+            echo json_encode($output);
+            
+	     
+        }else{
+           $this->view('users/connexion');    
         }
     }
     //Fonction qui crée une session 
     public function createUserSession($user) {
       
-        $_SESSION['id_user'] = $user->id_user;
+        $_SESSION['user_id'] = $user->user_id;
         $_SESSION['username'] = $user->username;
         $_SESSION['email'] = $user->email;
 
          if ($user->is_admin == 1){
            $_SESSION['is_admin'] = 1;
-           header('location:' . WWW_ROOT . 'pages/index');
+          
        }else{
-            $_SESSION['is_admin'] = 0;
-           
-           header('location:' . WWW_ROOT . 'pages/index');
+            $_SESSION['is_admin'] = 0;          
+          
        }        
         
     }

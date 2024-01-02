@@ -9,17 +9,17 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-                <li class="nav-item hidden-on-small-screen">
-                <a class="nav-link" href="<?php echo WWW_ROOT; ?>">Home</a>
-                </li>
                     <li class="nav-item hidden-on-small-screen">
+                        <a class="nav-link" href="<?php echo WWW_ROOT; ?>">Home</a>
+                    </li>
+                        <li class="nav-item hidden-on-small-screen">
                     <?php 
                     echo '<li class="nav-item mr-3">
                         <a class="nav-link" href="'. WWW_ROOT.'users/register">Inscription</a></li>';
                         echo '<li class="nav-item">
                         <a class="nav-link" href="'. WWW_ROOT.'users/connexion">Connexion</a></li>';
                     ?>
-                </li>
+                    </li>
                 </ul>
             </div>
         </div>

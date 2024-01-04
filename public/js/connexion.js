@@ -13,12 +13,12 @@ function save_data() {
   ajax_request.send(form_data);
 
   ajax_request.onreadystatechange = function () {
-    if (ajax_request.readyState == 4 && ajax_request.status == 200) {
+    if(ajax_request.readyState == 4 && ajax_request.status == 200) {
       document.getElementById("submit").disabled = false;
       
       var response = JSON.parse(ajax_request.responseText);
 
-      if (response.success != "") {
+      if(response.success != "") {
         document.getElementById("connect_form").reset();
         document.getElementById("message").innerHTML = response.success;
         console.log(response.success);
@@ -36,13 +36,13 @@ function save_data() {
 
       } else {
         //display validation error
-        if (response.email_error != "") {
+        if(response.email_error != "") {
           document.getElementById("email_error").innerHTML =
             response.email_error;
           document.getElementById("email_iconic").style.display = "inline";
         }
 
-        if (response.password_error != "") {
+        if(response.password_error != "") {
           document.getElementById("password_error").innerHTML =
             response.password_error;
           document.getElementById("password_iconic").style.display = "inline";

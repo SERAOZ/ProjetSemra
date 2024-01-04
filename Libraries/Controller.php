@@ -11,9 +11,9 @@
 
         //Permet de charger les vues (vérifie si elle existe)
         public function view($view, $data = []) {
-            if (file_exists(ROOT.'views/' . $view . '.php')) {
+            if(file_exists(ROOT.'views/' . $view . '.php')) {
                 require_once(ROOT.'views/' . $view . '.php');
-            } else {
+            }else{
                 die("404, la page n'existe pas.");
             }
         }

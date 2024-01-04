@@ -5,20 +5,20 @@ class User {
     public function __construct() {
         $this->db = new Database;
     }
-    public function inscription($data) {
+    public function inscription($username, $email, $password) {
               
         $this->db->query('INSERT INTO users (username, password, email, is_admin) VALUES(:username, :password, :email, :is_admin)');
 
         //Bind values
-        $this->db->bind(':username', $data['username']);
-        $this->db->bind(':password', $data['password']);
-        $this->db->bind(':email', $data['email']);        
+        $this->db->bind(':username', $username);
+        $this->db->bind(':password', $password);
+        $this->db->bind(':email', $email);        
         $this->db->bind(':is_admin', 0);        
-        
+            
         //Execute function
-        if ($this->db->execute()) {
+        if($this->db->execute()) {
             return true;
-        } else {
+        }else {
             return false;
         }
     }
@@ -33,7 +33,7 @@ class User {
         //Check if email is already registered
         if($this->db->rowCount() > 0) {
             return true;
-        } else {
+        }else {
             return false;
         }
     }
@@ -48,9 +48,9 @@ class User {
         if($row != FALSE){
             $hashedPassword = $row->password;
 
-            if (password_verify($password, $hashedPassword) ) {
+            if(password_verify($password, $hashedPassword) ) {
                 return $row;
-            } else {
+            }else{
                 return false;
             }
         }else{return false;}

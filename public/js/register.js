@@ -2,7 +2,7 @@ function register_user() {
   var form_element = document.getElementsByClassName('form_data');
   var form_data = new FormData();
 
-  for (var count = 0; count < form_element.length; count++) {
+  for(var count = 0; count < form_element.length; count++) {
     form_data.append(form_element[count].name, form_element[count].value);
   }
   console.log(form_data);
@@ -13,13 +13,13 @@ function register_user() {
   ajax_request.send(form_data);
 
   ajax_request.onreadystatechange = function () {
-    if (ajax_request.readyState == 4 && ajax_request.status == 200) {
+    if(ajax_request.readyState == 4 && ajax_request.status == 200) {
       document.getElementById('submit').disabled = false;
       var response = JSON.parse(ajax_request.responseText);
 
-      if (response.success != "") {
+    if(response.success != "") {
         document.getElementById('message').innerHTML = response.success;
-        document.getElementById('connect_form').reset();
+        document.getElementById("register_form").reset();
 
         document.getElementById("username_error").innerHTML = "";
         document.getElementById("username_iconic").style.display = "none";
@@ -32,27 +32,24 @@ function register_user() {
           window.location.href = "http://localhost/ProjetSemra/users/connexion";
         }, 3000);
 
-      } else {
-        // Display validation errors
-
-        if (response.username_error != "") {
+    }else {
+    // Display validation errors
+    if (response.username_error != "") {
           document.getElementById('username_error').innerHTML = response.username_error;
           document.getElementById('username_iconic').style.display = 'inline';
-        } else {
+    }else {
           document.getElementById('username_iconic').style.display = 'none';
-        }
-        
-        if (response.email_error != "") {
+    }        
+    if(response.email_error != "") {
           document.getElementById('email_error').innerHTML = response.email_error;
           document.getElementById('email_iconic').style.display = 'inline';
-        } else {
+    }else {
           document.getElementById('email_iconic').style.display = 'none';
-        }
-
-        if (response.password_error != "") {
+    }
+    if (response.password_error != "") {
           document.getElementById('password_error').innerHTML = response.password_error;
           document.getElementById('password_iconic').style.display = 'inline';
-        } else {
+    } else {
           document.getElementById('password_iconic').style.display = 'none';
         }        
       }

@@ -1,8 +1,7 @@
 <?php
 
 class Users extends Controller 
-{
-    
+{   
     private $userModel;
    
     public function __construct() { 
@@ -17,8 +16,7 @@ class Users extends Controller
   
     public function register() {
                 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                       
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {                       
             $username=$this->valid_data($_POST["username"]);
             $email = $_POST["email"];
             $password = $this->valid_data($_POST["password"]);
@@ -32,31 +30,27 @@ class Users extends Controller
                 $username_error = 'Username is Required';
             }
             // Validate email
-            if (empty($email)) {
+            if(empty($email)) {
                 $email_error= 'Email is required.';
-            } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            }else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $email_error = 'Please enter the correct format.';
             } 
-            if ($this->userModel->findUserByEmail($email)) {
+            if($this->userModel->findUserByEmail($email)) {
                 $email_error = 'Email is already taken.';
-            }
-    
+            }    
             if(empty($password))
             {
                 $password_error = 'Password is Required';
-            }    
-            
-            if($username_error=='' && $email_error == '' && $password_error == ''){
-                
+            }            
+            if($username_error=='' && $email_error == '' && $password_error == ''){                
                 // Hash password
                 $password= password_hash($password, PASSWORD_DEFAULT);
     
-                if ($this->userModel->inscription($username, $email, $password)) {
-                    $success = '<div class="alert alert-success">Vous êtes inscrit(e)</div>';      
-                } else {
-                   $success = '<div class="alert alert-success">Erreur d\'inscription, veuillez recommencer</div>';
-                }
-                
+            if($this->userModel->inscription($username, $email, $password)) {
+                $success = '<div class="alert alert-success">Vous êtes inscrit(e)</div>';      
+            }else {
+                $success = '<div class="alert alert-success">Erreur d\'inscription, veuillez recommencer</div>';
+            }                
             }
             $output = array(
                 'success'		=>	$success,
@@ -65,12 +59,11 @@ class Users extends Controller
                 'password_error'=>	$password_error,
             );
 
-echo json_encode($output);
-
-}else{
-$this->view('users/register');    
-}                 
-}   
+        echo json_encode($output);
+        }else{
+        $this->view('users/register');    
+        }                 
+    }   
     public function connexion() {
         //validation des post
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -82,15 +75,13 @@ $this->view('users/register');
             $success= '';
             $email_error = '';
             $password_error = '';
-
-
             if(empty($email))
             {
                 $email_error = 'Email is Required';
             }
             else
             {
-                if(!filter_var($email, FILTER_VALIDATE_EMAIL))
+            if(!filter_var($email, FILTER_VALIDATE_EMAIL))
                 {
                     $email_error = 'Email is invalid';
                 }
@@ -100,27 +91,22 @@ $this->view('users/register');
             {
                 $password_error = 'Password is Required';
             }
-
-            if( $email_error == '' && $password_error == ''){
+            if($email_error == '' && $password_error == ''){
                 $loggedInUser = $this->userModel->connexion($email, $password);
             
-            if ($loggedInUser == true ) {
+            if($loggedInUser == true ) {
                 $this->createUserSession($loggedInUser);    
-                  $success = '<div class="alert alert-success">Vous êtes connecté(e)</div>';      
+                $success = '<div class="alert alert-success">Vous êtes connecté(e)</div>';      
             }else{
                 $success = '<div class="alert alert-success">Mauvais email ou password. Êtes vous déja inscrit(e)?</div>';  
-            }
-          
+            }          
             }
             $output = array(
-                                'success'		=>	$success,
-                                'email_error'	=>	$email_error,
-                                'password_error'=>	$password_error,
-                            );
-
-            echo json_encode($output);
-            
-	     
+                    'success'		=>	$success,
+                    'email_error'	=>	$email_error,
+                    'password_error'=>	$password_error,
+            );
+            echo json_encode($output);         
         }else{
            $this->view('users/connexion');    
         }
@@ -132,19 +118,17 @@ $this->view('users/register');
         $_SESSION['username'] = $user->username;
         $_SESSION['email'] = $user->email;
 
-         if ($user->is_admin == 1){
+        if($user->is_admin == 1){
            $_SESSION['is_admin'] = 1;
           
-       }else{
-            $_SESSION['is_admin'] = 0;          
-          
-       }        
+        }else{
+            $_SESSION['is_admin'] = 0;     
+        }        
         
     }
 
-    public function logout() {
-       
-        unset($_SESSION['id_user']);
+    public function logout() {       
+        unset($_SESSION['user_id']);
         unset($_SESSION['username']);
         unset($_SESSION['email']);
         unset($_SESSION['is_admin']);

@@ -8,8 +8,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-90">
-                        <form id="register_form">
-                            
+                        <form id="register_form">                            
                         <fieldset>
                         <legend>INSCRIPTION</legend>
                                 <span id="message"></span> 
@@ -52,8 +51,7 @@
                                    <span id="password_error" class="text-danger"></span>    
                                     </div>                                        
                                     <button type="button" name="submit" id="submit" class="btn btn-primary" onclick="register_user(); return false;">S'inscrire</button>
-                                         
-                                </fieldset>
+                            </fieldset>
                             </form>
                         </div>                                      
                     </div>                 

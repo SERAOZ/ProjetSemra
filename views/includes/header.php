@@ -13,11 +13,20 @@
                         <a class="nav-link" href="<?php echo WWW_ROOT; ?>">Home</a>
                     </li>
                         <li class="nav-item hidden-on-small-screen">
-                    <?php 
-                    echo '<li class="nav-item mr-3">
+                    <?php
+                    if(isset($_SESSION['user_id']) && ($_SESSION['is_admin']== 1)){
+                        echo '<li class="nav-item"><span class="nav-link">'.$_SESSION['username'].', vous êtes connecté(e) comme Administrateur.</span></li>';  
+                        echo '<li class="nav-item">';
+                        echo '<a href="'.WWW_ROOT.'pages/gestion" class="nav-link">Gestion</a></li>';
+                        echo '<li class="nav-item">';
+                        echo '<a href="'.WWW_ROOT.'users/logout" class="nav-link">Déconnexion</a></li>';
+                    }else{
+                        echo '<li class="nav-item mr-3">
                         <a class="nav-link" href="'. WWW_ROOT.'users/register">Inscription</a></li>';
                         echo '<li class="nav-item">
                         <a class="nav-link" href="'. WWW_ROOT.'users/connexion">Connexion</a></li>';
+                    }
+                    
                     ?>
                     </li>
                 </ul>

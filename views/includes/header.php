@@ -14,12 +14,18 @@
                     </li>
                         <li class="nav-item hidden-on-small-screen">
                     <?php
-                    if(isset($_SESSION['user_id']) && ($_SESSION['is_admin']== 1)){
-                        echo '<li class="nav-item"><span class="nav-link">'.$_SESSION['username'].', vous êtes connecté(e) comme Administrateur.</span></li>';  
+                    //printr ( $_SESSION , $name = 'session' );
+                    if(isset($_SESSION['is_admin']) && $_SESSION['is_admin']== 1){                        
+                        
                         echo '<li class="nav-item">';
                         echo '<a href="'.WWW_ROOT.'pages/gestion" class="nav-link">Gestion</a></li>';
                         echo '<li class="nav-item">';
                         echo '<a href="'.WWW_ROOT.'users/logout" class="nav-link">Déconnexion</a></li>';
+                        echo '<li class="nav-item ms-5 ps-5"><span class="nav-link">'.$_SESSION['username'].', vous êtes connecté(e) comme Administrateur.</span></li>';  
+                    }else if(isset($_SESSION['user_id']) && $_SESSION['is_admin']== 0){
+                        echo '<li class="nav-item">';
+                        echo '<a href="'.WWW_ROOT.'users/logout" class="nav-link">Déconnexion</a></li>';
+                        echo '<li class="nav-item ms-5 ps-5"><span class="nav-link">'.$_SESSION['username'].', vous êtes connecté(e) comme membre.</span></li>';   
                     }else{
                         echo '<li class="nav-item mr-3">
                         <a class="nav-link" href="'. WWW_ROOT.'users/register">Inscription</a></li>';

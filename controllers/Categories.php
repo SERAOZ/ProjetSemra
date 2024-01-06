@@ -6,7 +6,7 @@ class Categories extends Controller
     private $categoryModel;
    
     public function __construct() { 
-        $this->categoryModel = $this->model('categoryModel');       
+        $this->categoryModel = $this->model('category');       
     }
     public function valid_data($data){
         $data = trim($data);//enlève les espaces en début et fin de chaîne/
@@ -23,11 +23,11 @@ class Categories extends Controller
         if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add'])){        
             $category = [
             "name" => $this-> valid_data ($_POST["name"]),
-            "description" => $this ->valid_data($_POST["description"])
+            "description" => $_POST["description"]
             ];                 
         
         if($this->categoryModel->addCategory($category)) {
-            header('location: ' . WWW_ROOT . 'admin/crudCategory');
+            header('location: ' . WWW_ROOT . 'categories/listCategory');
             } else {
             die('Erreur système.');
             }
@@ -43,7 +43,7 @@ class Categories extends Controller
             $data = [
                 'categories'=>$categories
             ];
-            $this->view("admin/listCategory", $data);
+            $this->view("admin/gestionCategory", $data);
         }       
     }
 
@@ -71,29 +71,31 @@ class Categories extends Controller
 
    public function updateCategory(){    
         $category = [
+            "id_category" =>"",
             "name" => "",
             "description" => ""
         ];
         if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit'])){        
             $category = [
+            "id_category" =>$_POST["id_category"],       
             "name" => $this-> valid_data ($_POST["name"]),
             "description" => $this ->valid_data($_POST["description"])
             ]; 
                 
             if($this->categoryModel->updateCategory($category)) {                   
-                header('location: ' . WWW_ROOT . 'admin/crudCategory');
+                header('location: ' . WWW_ROOT . 'categories/listCategory');
                 } else {
                 die('Erreur système.');
                 }
-                }else{             
-                $this->view('pages/index'); 
+            }else{             
+            $this->view('main/index'); 
             }
    }
 
    public function deleteCategory($id_category){    
         if($_SESSION["is_admin"] ==1 ){
             $this -> categoryModel -> deleteCategory($id_category);
-            header("Location:" . WWW_ROOT . "admin/crudCategory");
+            header("Location:" . WWW_ROOT . "categories/listCategory");
         }
    }
 

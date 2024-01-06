@@ -14,7 +14,13 @@ class Pages extends Controller
     } 
     
     public function gestion(){
-        $this ->view('admin/gestion');
+        if(isLoggedIn()){
+             $this ->view('admin/gestion');
+        }else{
+            header('location: ' . WWW_ROOT . 'pages/index');
+        }
+       
     }
+
 }
 

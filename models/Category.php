@@ -39,7 +39,7 @@ class Category {
     public function updateCategory($category){
             
         $this->db->query('UPDATE category SET name= :name, description= :description WHERE id_category= :id_category');
-       
+        $this->db->bind(':id_category', $category['id_category']);
         $this->db->bind(':name', $category['name']);
         $this->db->bind(':description', $category['description']);
                

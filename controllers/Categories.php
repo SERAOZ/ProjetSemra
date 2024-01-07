@@ -14,8 +14,7 @@ class Categories extends Controller
         $data = htmlspecialchars($data);/*enlève les balises html comme ""<>...*/
         return $data;
     }
-    public function addCategory (){
-        
+    public function addCategory (){        
         $category = [
             "name" => "",
             "description" => ""

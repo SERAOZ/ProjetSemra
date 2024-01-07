@@ -3,9 +3,11 @@ class Contents extends Controller
 {
     
     private $contentModel;
+    private $categoryModel;
    
     public function __construct() { 
-        $this->contentModel = $this->model('content');       
+        $this->contentModel = $this->model('content');
+        $this->categoryModel = $this->model('category');      
     }
     public function valid_data($data){
         $data = trim($data);//enlève les espaces en début et fin de chaîne/
@@ -20,13 +22,15 @@ class Contents extends Controller
         $content = [
             "title" => "",
             "content_text" => "",
-            "publicationDate" => ""
+            "publicationDate" => "",
+            "id_category"=>""
         ];
         if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add'])){        
             $content = [
             "title" => $this-> valid_data ($_POST["title"]),
             "content_text" => $_POST["content_text"],
-            "publicationDate" =>$date
+            "publicationDate" =>$date,
+            "id_category" =>$_POST["id_category"]
 
             ];                 
         
@@ -35,8 +39,11 @@ class Contents extends Controller
             } else {
             die('Erreur système.');
             }
-            }else{                
-                $this->view('admin/addContent');}            
+            }else{ 
+                $categories=$this->categoryModel->listCategory();
+                $data=[
+                    'categories' => $categories];               
+                $this->view('admin/addContent', $data);}            
     }
 
     public function listContent(){
@@ -65,8 +72,10 @@ class Contents extends Controller
 
         if($_SESSION['is_admin']==1){
             $content = $this ->contentModel->oneContent($id_content);
+            $categories=$this->categoryModel->listCategory();
             $data = [
-            'content'=>$content
+            'content'=>$content,
+            'categories'=>$categories
             ];
             $this->view('admin/formContent', $data);
         }       
@@ -77,15 +86,19 @@ class Contents extends Controller
     $date = $now->format('Y-m-d H:i:s');
       
         $content = [
+            "id_content" =>"",
             "title" => "",
             "content_text" => "",
-            "publicationDate" => ""
+            "publicationDate" => "",
+            "id_category"=>""
         ];
         if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit'])){        
             $content = [
+            "id_content" =>$_POST["id_content"],     
             "title" => $this-> valid_data ($_POST["title"]),
-            "content_text" => $this ->valid_data($_POST["context_text"]),
-            "publicationDate" => $date
+            "content_text" => $this ->valid_data($_POST["content_text"]),
+            "publicationDate" => $date,
+            "id_category" =>$_POST["id_category"]
             ]; 
                 
             if($this->contentModel->updateContent($content)) {                   
@@ -94,7 +107,7 @@ class Contents extends Controller
                 die('Erreur système.');
                 }
                 }else{             
-                $this->view('pages/index'); 
+                $this->view('main/index'); 
             }
    }
 

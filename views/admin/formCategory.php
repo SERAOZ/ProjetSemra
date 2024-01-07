@@ -10,8 +10,8 @@
                     <div class="row">
                         <div class="col-lg-2"></div>
                             <div class="col-md-6">
-                                <h5>Ajout Category</h5>
-                                <form action="<?php echo WWW_ROOT;?>categories/updateCategory" method="post">
+                                <h5>Modifier Category</h5>
+                                <form action="<?php echo WWW_ROOT;?>categories/updateCategory" method="Post">
                                 <fieldset>
                                     <div class="form-group">
                                         <label for="name">Nom</label>

@@ -6,15 +6,16 @@
              <section class="col-sm-12 col-md-9 my-5">
                 <div class="container">                    
                     <div class="col-md-12 ">
-                        <h2>Contenue</h2>
-                        <?php echo '<a href="'.WWW_ROOT.'contents/addContent" class="btn btn-success my-5">Ajouter Categorie</a>';?>
+                        <h2>Contenu</h2>
+                        <?php echo '<a href="'.WWW_ROOT.'contents/addContent" class="btn btn-success my-5">Ajouter Contenu</a>';?>
                         <table class="table table-hover">
                             <thead>
                                 <tr class="table-active">
                                 <th scope="col">ID </th>
                                 <th scope="col">Titre </th>
                                 <th scope="col">Texte du Contenu</th>
-                                <th scope="col">Date de Publication</th>    
+                                <th scope="col">Date de Publication</th>
+                                <th scope="col">Categorie</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -26,6 +27,7 @@
                                         echo "<td>".$content->title."</td>";
                                         echo "<td>".$content->content_text."</td>";
                                         echo "<td>".$content->publicationDate."</td>";
+                                        echo "<td>".$content->name."</td>";
                                                                             
                                         echo '<td><a  href="'.WWW_ROOT .'contents/formContent/'.$content->id_content.'">
                                         Modifier</a>

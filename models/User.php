@@ -56,5 +56,44 @@ class User {
         }else{return false;}
        
     }
+
+    public function listUser(){
+        $this ->db ->query ("SELECT * from users order by username ASC");
+        $users = $this-> db -> resultSet();
+        return $users;
+    }
+
+     public function oneUser($user_id) {
+        $this->db->query('SELECT * FROM users WHERE user_id= :user_id');
+        $this->db->bind(':user_id', $user_id);
+        $user=$this->db->single();
+        return $user; 
+    }
+    public function updateUser($username, $email, $password, $is_admin){
+            
+        $this->db->query('UPDATE users SET username= :username, email= :email, password = :password, is_admin = :is_admin WHERE user_id= :user_id');
+         $this->db->bind(':username', $username);
+        $this->db->bind(':password', $password);
+        $this->db->bind(':email', $email); 
+        $this->db->bind(':is_admin', $is_admin);       
+            //Execute function
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }         
+    }
+
+     public function deleteUser($user_id){
+    
+        $this->db->query('DELETE FROM users WHERE user_id = :user_id');
+        $this->db->bind('user_id', $user_id);
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
 }
 ?>

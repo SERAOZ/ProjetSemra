@@ -10,8 +10,13 @@ class Pages extends Controller
     
     public function index()
     { 
-    $this->view('main/index');
-    } 
+    $contents = $this -> pageModel -> listContent();
+            $data = [
+                'contents'=>$contents
+            ];
+           
+    $this->view('main/index', $data);
+    }
     
     public function gestion(){
         if(isLoggedIn()){
@@ -21,6 +26,8 @@ class Pages extends Controller
         }
        
     }
+
+
 
 }
 

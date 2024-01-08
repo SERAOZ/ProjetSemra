@@ -135,4 +135,105 @@ class Users extends Controller
        
         header('location:' . WWW_ROOT . 'users/connexion');
     }
+
+    public function listUser(){
+
+        if($_SESSION["is_admin"] ==1 ){
+            $users = $this -> userModel -> listUser();
+            $data = [
+                'users'=>$users
+            ];
+            $this->view("admin/gestionUser", $data);
+        }       
+    }
+
+    public function oneUser($user_id){
+        
+        if($_SESSION['is_admin']==1 || $_SESSION['user_id']==$user_id){
+            $user = $this ->userModel->oneUser($user_id);
+            $data = [
+            'user'=>$user
+            ];
+            $this-> view("admin/oneUser", $data);
+        }
+    }
+
+   public function formUser($user_id){
+
+        if($_SESSION['is_admin']==1 || $_SESSION['user_id']==$user_id){
+            $user = $this ->userModel->oneUser($user_id);
+            $data = [
+            'user'=>$user
+            ];
+            $this->view('admin/formUser', $data);
+        }       
+   }
+
+   public function deleteUser($user_id){    
+        if($_SESSION["is_admin"] ==1 ){
+            $this -> userModel -> deleteUser($user_id);
+            header("Location:" . WWW_ROOT . "users/listUser");
+        }
+   }
+
+   public function updateUser() {
+                
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $user_id=$_POST["user_id"];                       
+        $username=$this->valid_data($_POST["username"]);
+        $email = $_POST["email"];
+        $password = $this->valid_data($_POST["password"]);
+        $is_admin =$_POST["is_admin"];
+        $success= '';
+        $username_error='';
+        $email_error = '';
+        $password_error = '';
+        $is_admin_error='';
+        
+        if(empty($username))
+        {
+            $username_error = 'Username is Required';
+        }
+        // Validate email
+        if(empty($email)) {
+            $email_error= 'Email is required.';
+        }else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $email_error = 'Please enter the correct format.';
+        } 
+        if($this->userModel->findUserByEmail($email)) {
+            $email_error = 'Email is already taken.';
+        }    
+        if(empty($password))
+        {
+            $password_error = 'Password is Required';
+        }
+        if(empty($is_admin))
+        {
+            $is_admin_error = 'Admin is Required';
+        }            
+        if($username_error=='' && $email_error == '' && $password_error == '' && $is_admin_error ==''){                
+            // Hash password
+            $password= password_hash($password, PASSWORD_DEFAULT);
+
+        if($this->userModel->updateUser($user_id, $username, $email, $password, $is_admin)) {
+            $success = '<div class="alert alert-success">Vous êtes inscrit(e)</div>';      
+        }else {
+            $success = '<div class="alert alert-success">Erreur d\'inscription, veuillez recommencer</div>';
+        }                
+        }
+        $output = array(
+            'success'		=> $success,
+            'username_error'=> $username_error,
+            'email_error'	=> $email_error,
+            'password_error'=> $password_error,
+            'is_admin_error'=> $is_admin_error
+        );
+
+    echo json_encode($output);
+    }else{
+    $this->view('admin/formUser');    
+    }                 
+}   
+
+
 }

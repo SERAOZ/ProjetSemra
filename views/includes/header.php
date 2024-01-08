@@ -24,6 +24,7 @@
                         echo '<li class="nav-item ms-5 ps-5"><span class="nav-link">'.$_SESSION['username'].', vous êtes connecté(e) comme Administrateur.</span></li>';  
                     }else if(isset($_SESSION['user_id']) && $_SESSION['is_admin']== 0){
                         echo '<li class="nav-item">';
+                        echo '<a href="'.WWW_ROOT.'users/oneUser/'.$_SESSION['user_id'].'" class="nav-link">Profil</a></li>';
                         echo '<a href="'.WWW_ROOT.'users/logout" class="nav-link">Déconnexion</a></li>';
                         echo '<li class="nav-item ms-5 ps-5"><span class="nav-link">'.$_SESSION['username'].', vous êtes connecté(e) comme membre.</span></li>';   
                     }else{

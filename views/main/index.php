@@ -3,50 +3,37 @@
     
 <?php require (ROOT.'views/includes/header.php'); ?> 
 
-<div class="container-fluid">
+<div class="container-fluid w-75 mx-auto">
+    <!-- Titre principal de la page -->
     <h1>DEVELOPPEMENT WEB</h1>
-
-    <?php
     
-    if($data['contents'] != ""){
-      foreach($data['contents'] as $content){
-                        echo '
-                        <div class="row">
-                            <div class="col-md-4 mt-3 w-100>
-                                <p class="lead mt-5">CATEGORIE : '.$content->name.'</p>
-                                <h4 mt-5>'.$content->title.'</h4><br>
-                                
-                            </div>
-                            <div class="col-md-4  w-100">
-                                <h4 class="mt-5">'.$content->content_text.'</h4>
-                                <br />
-                                <h6>Date de publication'.$content->publicationDate.'</h6>
-                                 
-                                <a class="btn btn-outline-warning"  href="'.WWW_ROOT.'contents/oneContent/'.$content->id_content.'">Voir</a> 
-                            </div>
-                        </div>';
-                        echo '
-                        <div class="card mb-3">
-                        <h3 class="card-header">Membre</h3>
-                        <div class="card-body">
-                          <h5 class="card-title"><?php echo "Nom: "'.$data['user']->username. ' </h5> ' ?>
-                          <h6 class="card-subtitle text-muted "> Rôle: <?php if ($data['user']->is_admin == 1){echo "Administrateur ";}else {echo "Membre inscrit ";}?></h6>
-                        </div>  
-                        <div class="card-body">
-                          <h4><?php echo "Email: ".$data['user']->email; ?></h4>   
-                        </div>
-                        <div class="card-body">
-                        <?php echo '<td><a  href="'.WWW_ROOT .'users/formUser/'.$data['user']->user_id.'"> 
-                              Modifier</a> '?>  
-                        </div>
-                      </div> 
-                    }  
-    }else{
-       echo 'il n\'y a pas encore de contenu à publier';
-    }
- ?>
-
+    <!-- Une rangée (row) pour afficher les contenus -->
+    <div class="row d-flex justify-content-md-evenly flex-wrap">
+        <?php
+        // Vérification si des contenus sont disponibles
+        if($data['contents'] != ""){
+            foreach($data['contents'] as $content){
+                // Affichage d'une carte Bootstrap pour chaque contenu
+                echo '
+                <div class="card border-primary my-3 mx-3" style="max-width: 20rem;">
+                    <div class="card-header">'.$content->title.'</div>
+                    <div class="card-body">
+                        <h4 class="card-title">Categorie: '.$content->name.'</h4>
+                        <p class="card-text">'.$content->content_text.'</p>
+                    </div>
+                    <div class="card-footer text-muted">'.$content->publicationDate.'</div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary" href="'.WWW_ROOT .'contents/oneContent/'.$content->id_content.'">Voir</a>
+                    </div>
+                </div>';
+            }  
+        }else{
+            // Message si aucun contenu n'est disponible
+            echo 'il n\'y a pas encore de contenu à publier';
+        }
+        ?>
+    </div>
 </div>
 
-<?php require (ROOT.'views/includes/footer.php'); ?> 
+<?php require (ROOT.'views/includes/footer.php');?> 
 </body>

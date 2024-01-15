@@ -1,53 +1,57 @@
 <?php
-// On génère une constante contenant le chemin vers la racine publique du projet
-define('ROOT', str_replace('index.php','',$_SERVER['SCRIPT_FILENAME']));
+// Définit une constante contenant le chemin vers la racine du projet
+define('ROOT', str_replace('index.php', '', $_SERVER['SCRIPT_FILENAME']));
 
-define("WWW_ROOT", rtrim($_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST'].dirname($_SERVER['SCRIPT_NAME']).'/'));
+// Définit une constante contenant l'URL de la racine du site web
+define("WWW_ROOT", rtrim($_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME']) . '/'));
 
-// On appelle le modèle et le contrôleur principaux
-   //Requiert les librairies génériques
-  
-   require_once (ROOT.'libraries/Controller.php');
-   require_once (ROOT.'libraries/Database.php');
-   require_once (ROOT.'helpers/session_helper.php');
-   require_once (ROOT.'helpers/printr_helper.php');
+/**
+ * Appelle les bibliothèques et les assistants nécessaires pour le fonctionnement de l'application
+ */
+require_once(ROOT . 'libraries/Controller.php'); // Inclut le contrôleur de base
+require_once(ROOT . 'libraries/Database.php'); // Inclut la classe de base de données
+require_once(ROOT . 'helpers/session_helper.php'); // Inclut des fonctions d'aide pour la gestion des sessions
+require_once(ROOT . 'helpers/printr_helper.php'); // Inclut des fonctions d'aide pour le débogage
 
-// On sépare les paramètres et on les met dans le tableau $params
+// Sépare les paramètres de l'URL et les place dans un tableau $params
 $params = explode('/', $_GET['p']);
 
-// Si au moins 1 paramètre existe
-if($params[0] != ""){
-    // On sauvegarde le 1er paramètre dans $controller en mettant sa 1ère lettre en majuscule
+// Si au moins 1 paramètre est défini dans l'URL
+if ($params[0] != "") {
+    // Le premier paramètre de l'URL est utilisé comme nom du contrôleur en capitalisant sa première lettre
     $controller = ucfirst($params[0]);
 
-    // On sauvegarde le 2ème paramètre dans $action si il existe, sinon index
+    // Le deuxième paramètre de l'URL est utilisé comme nom de l'action, s'il existe, sinon c'est 'index'
     $action = isset($params[1]) ? $params[1] : 'index';
 
-    // On appelle le contrôleur
-    require_once(ROOT.'controllers/'.$controller.'.php');
+    // Nous incluons le fichier du contrôleur correspondant
+    require_once(ROOT . 'controllers/' . $controller . '.php');
 
-    // On instancie le contrôleur
+    // Instancie le contrôleur correspondant
     $controller = new $controller();
 
-    if(method_exists($controller, $action)){
+    // Vérifie si la méthode (action) existe dans le contrôleur
+    if (method_exists($controller, $action)) {
+        // Supprime les deux premiers éléments du tableau $params (nom du contrôleur et nom de l'action)
         unset($params[0]);
         unset($params[1]);
-        call_user_func_array([$controller,$action], $params);
-        // On appelle la méthode
-        // $controller->$action();    
-    }else{
-        // On envoie le code réponse 404
+
+        // Appelle la méthode (action) avec les paramètres restants
+        call_user_func_array([$controller, $action], $params);
+    } else {
+        // Si la méthode (action) n'existe pas, renvoie une réponse HTTP 404
         http_response_code(404);
         echo "La page recherchée n'existe pas";
     }
-}else{
-    // Ici aucun paramètre n'est défini
-    // On appelle le contrôleur par défaut
-    require_once(ROOT.'controllers/Pages.php');
+} else {
+    // Si aucun paramètre n'est défini dans l'URL, cela signifie que l'utilisateur accède à la page d'accueil
 
-    // On instancie le contrôleur
+    // Nous incluons le fichier du contrôleur de page par défaut
+    require_once(ROOT . 'controllers/Pages.php');
+
+    // Instancie le contrôleur de page par défaut
     $controller = new Pages();
 
-    // On appelle la méthode index
+    // Appelle la méthode par défaut (index) du contrôleur de page
     $controller->index();
 }

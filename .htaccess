@@ -1,2 +1,9 @@
+# Active le moteur de réécriture, nécessaire pour la réécriture d'URL.
 RewriteEngine On
+
+# Définit une règle de réécriture.
+# Cette règle capture les URLs qui correspondent au modèle ^([a-zA-Z0-9\-\_\/]*)$
+# et les réécrit sous la forme index.php?p=$1
+# où $1 représente la partie de l'URL capturée par le modèle.
 RewriteRule ^([a-zA-Z0-9\-\_\/]*)$ index.php?p=$1
+

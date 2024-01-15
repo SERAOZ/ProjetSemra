@@ -7,4 +7,3 @@
     define('DB_NAME', 'user23'); 
 
     
-?>

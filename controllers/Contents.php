@@ -77,7 +77,16 @@ class Contents extends Controller
             $this->view("admin/oneContent", $data);
         }
     }
-
+    public function onePublicContent($id_content){
+        
+        
+            $content = $this->contentModel->oneContent($id_content);
+            $data = [
+                'content' => $content
+            ];
+            $this->view("admin/oneContent", $data);
+        
+    }
    // Fonction pour afficher le formulaire de mise à jour d'un contenu.
    public function formContent($id_content){
 
@@ -130,4 +139,5 @@ class Contents extends Controller
             header("Location:" . WWW_ROOT . "contents/listContent");
         }
    }
+   
 }

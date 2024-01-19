@@ -23,7 +23,7 @@
                     </div>
                     <div class="card-footer text-muted">'.$content->publicationDate.'</div>
                     <div class="card-footer">
-                        <a class="btn btn-primary" href="'.WWW_ROOT .'contents/oneContent/'.$content->id_content.'">Voir</a>
+                        <a class="btn btn-primary" href="'.WWW_ROOT .'contents/onePublicContent/'.$content->id_content.'">Voir</a>
                     </div>
                 </div>';
             }  

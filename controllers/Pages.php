@@ -26,7 +26,7 @@ class Pages extends Controller
     // Méthode pour afficher la page de gestion (réservée aux utilisateurs connectés).
     public function gestion(){
         // Vérifie si l'utilisateur est connecté.
-        if(isLoggedIn()){
+        if(isLoggedIn() && $_SESSION["is_admin"]==1){
              $this->view('admin/gestion');
         } else {
             // Redirige vers la page d'accueil si l'utilisateur n'est pas connecté.

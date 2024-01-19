@@ -1,5 +1,6 @@
 <?php
-// Cette fonction permet d'afficher de manière lisible le contenu d'une variable ou d'un objet avec un nom en tant qu'étiquette.
+// Cette fonction permet d'afficher de manière lisible le contenu d'une variable ou 
+//d'un objet avec un nom en tant qu'étiquette.
 function printr($object, $name = '') {
     // Affiche le nom (ou l'étiquette) suivi de ':' pour identifier la variable ou l'objet.
     print('\'' . $name . '\' : ');

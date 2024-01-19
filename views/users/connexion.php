@@ -12,11 +12,11 @@
                                 <fieldset>
                                     <legend>CONNEXION</legend>
                                     <span id="message"></span>
-                                    <div class="form-group" >
+                                    <div class="form-group one" >
                                         <label for="email">Adresse email </label>
                                         <input type="text" class="form-control form_data" id="email" name="email">
                                         <!-- Icône et message d'erreur pour l'email -->
-                                        <span class="iconic" id="email_iconic">
+                                        <span class="iconic_one" id="email_iconic">
                                             <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
                                                 <g fill="none" fill-rule="evenodd">
                                                     <circle fill="#FF2D2D" cx="12" cy="12" r="12" />
@@ -27,11 +27,11 @@
                                         </span>
                                         <span id="email_error" class="text-danger"></span>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group two">
                                         <label for="password">Password</label>
                                         <input type="password" class="form-control form_data" id="password" name="password">
                                         <!-- Icône et message d'erreur pour le mot de passe -->
-                                        <span class="iconic" id="password_iconic">
+                                        <span class="iconic_two" id="password_iconic">
                                             <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
                                                 <g fill="none" fill-rule="evenodd">
                                                     <circle fill="#FF2D2D" cx="12" cy="12" r="12" />

@@ -14,9 +14,10 @@ function register_user() {
   console.log(form_data);
   // Désactive le bouton d'envoi pour éviter les soumissions multiples.
   document.getElementById('submit').disabled = true;
-
+  var ajax_request = new XMLHttpRequest();
   // Crée un nouvel objet XMLHttpRequest pour la requête asynchrone.
   ajax_request.open('POST', 'register');
+  
   // Envoie l'objet FormData avec la requête AJAX.
   ajax_request.send(form_data);
 

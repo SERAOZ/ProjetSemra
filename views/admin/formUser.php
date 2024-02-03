@@ -36,11 +36,11 @@
                                     <!-- Libellé du champ -->
                                     <input type="text" class="form-control form_data" id="username" name="username"  value="<?= $data['user']->username ?>" >
                                     <!-- Champ de formulaire de type texte pour le nom d'utilisateur avec une valeur par défaut -->
-                                    <span class="iconic" id="username_iconic">
+                                    <span class="iconic_one_formUser" id="username_iconic">
                                         <!-- Icône affichée à côté du champ -->
                                         <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
                                             <g fill="none" fill-rule="evenodd">
-                                                <circle fill="#FF7979" cx="12" cy="12" r="12" />
+                                                <circle fill="#FF2D2D" cx="12" cy="12" r="12" />
                                                 <rect fill="#FFF" x="11" y="6" width="2" height="9" rx="1" />
                                                 <rect fill="#FFF" x="11" y="17" width="2" height="2" rx="1" />
                                             </g>
@@ -58,11 +58,11 @@
                                     <!-- Champ de formulaire de type texte pour l'adresse email avec une valeur par défaut -->
                                     <span id="email_error" class="text-danger"></span>
                                     <!-- Message d'erreur affiché en cas d'erreur -->
-                                    <span class="iconic" id="email_iconic">
+                                    <span class="iconic_two_formUser" id="email_iconic">
                                         <!-- Icône affichée à côté du champ -->
                                         <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
                                             <g fill="none" fill-rule="evenodd">
-                                                <circle fill="#FF7979" cx="12" cy="12" r="12" />
+                                                <circle fill="#FF2D2D" cx="12" cy="12" r="12" />
                                                 <rect fill="#FFF" x="11" y="6" width="2" height="9" rx="1" />
                                                 <rect fill="#FFF" x="11" y="17" width="2" height="2" rx="1" />
                                             </g>
@@ -76,11 +76,11 @@
                                     <!-- Libellé du champ -->
                                     <input type="password" class="form-control form_data" id="password" name="password" placeholder="Veuillez rappeler ou renouveler votre mot de passe" >
                                     <!-- Champ de formulaire de type mot de passe -->
-                                    <span class="iconic" id="password_iconic">
+                                    <span class="iconic_three_formUser" id="password_iconic">
                                         <!-- Icône affichée à côté du champ -->
                                         <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
                                             <g fill="none" fill-rule="evenodd">
-                                                <circle fill="#FF7979" cx="12" cy="12" r="12" />
+                                                <circle fill="#FF2D2D" cx="12" cy="12" r="12" />
                                                 <rect fill="#FFF" x="11" y="6" width="2" height="9" rx="1" />
                                                 <rect fill="#FFF" x="11" y="17" width="2" height="2" rx="1" />
                                             </g>
@@ -105,11 +105,11 @@
                                     </select>';}else{echo '<input type="hidden" name="is_admin" class="form_data" value="0" />';}
                                     ?>
                                     <!-- Sélection du rôle actuel de l'utilisateur avec un champ de sélection déroulante -->
-                                    <span class="iconic" id="is_admin_iconic">
+                                    <span class="iconic_four_formUser" id="is_admin_iconic">
                                         <!-- Icône affichée à côté du champ -->
                                         <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
                                             <g fill="none" fill-rule="evenodd">
-                                                <circle fill="#FF7979" cx="12" cy="12" r="12" />
+                                                <circle fill="#FF2D2D" cx="12" cy="12" r="12" />
                                                 <rect fill="#FFF" x="11" y="6" width="2" height="9" rx="1" />
                                                 <rect fill="#FFF" x="11" y="17" width="2" height="2" rx="1" />
                                             </g>
